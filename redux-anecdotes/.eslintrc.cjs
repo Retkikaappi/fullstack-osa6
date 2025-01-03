@@ -12,6 +12,27 @@ module.exports = {
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
   rules: {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+        "error",
+        "windows"
+    ],
+    "quotes": [
+        "error",
+        "single"
+    ],
+    "semi": [
+        "error",
+        "never"
+    ],
+    "eqeqeq": "error",
+    "no-trailing-spaces": "error",
+    "object-curly-spacing": [
+        "error", "always"
+    ],
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
