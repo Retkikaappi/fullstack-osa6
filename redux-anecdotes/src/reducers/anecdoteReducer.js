@@ -1,4 +1,4 @@
-/* eslint-disable no-case-declarations */
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -20,7 +20,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
+const anecdoteReducer = (state = initialState, action) => {
   switch(action.type){
   case 'VOTE':
     const anecdoteId = action.payload.id
@@ -57,4 +57,4 @@ export const createAnecdote = (anecdote) => {
   }
 }
 
-export default reducer
+export default anecdoteReducer
