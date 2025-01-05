@@ -4,7 +4,7 @@ const notificationSlice = createSlice({
   name: 'notification',
   initialState: '',
   reducers: {
-    showNotification(state, action){
+    displayNotification(state, action){
       return action.payload
     },
     hideNotification(){
@@ -13,5 +13,25 @@ const notificationSlice = createSlice({
   }
 })
 
-export const { showNotification, hideNotification } = notificationSlice.actions
+export const { displayNotification, hideNotification } = notificationSlice.actions
+
+let notif = null // ei hirveän hieno tapa estää notificaatioiden "queue":ta, mutta toimii.
+
+export const showNotification = (message, timeout) => {
+  return async dispatch => {
+    if(notif){
+      clearTimeout(notif)
+    }
+
+    dispatch(displayNotification(message))
+
+    notif = setTimeout(() => {
+      dispatch(hideNotification())
+      notif = null
+    }, (timeout * 1000))
+
+
+  }
+}
+
 export default notificationSlice.reducer
