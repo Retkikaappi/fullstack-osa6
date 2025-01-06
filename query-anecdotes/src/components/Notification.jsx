@@ -1,4 +1,9 @@
+import { useContext, useEffect } from "react"
+import NotificationContext from "../NotificationContext"
+
+
 const Notification = () => {
+  const [message, messageDispatch] = useContext(NotificationContext)
   const style = {
     border: 'solid',
     padding: 10,
@@ -6,12 +11,25 @@ const Notification = () => {
     marginBottom: 5
   }
   
-  if (true) return null
+  useEffect(() => {
+    const notif = setTimeout(() => {
+      messageDispatch({ type: 'HIDE'})
+    }, 5000)
+
+    // useEffect jotta ei tarvisi kylvää timeouttia, voisi tehdä myös reduceriin, jolloin voisi kontrolloida timeout-aikaa, mutta tämä vaikuttaa paremmalta.
+    return () => clearTimeout(notif)
+  }, [message])
+  
 
   return (
-    <div style={style}>
-      
-    </div>
+    <>
+    {message ? 
+      <div style={style}>
+        {message}
+      </div>
+      : null
+    }
+    </>
   )
 }
 

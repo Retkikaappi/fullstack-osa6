@@ -2,10 +2,12 @@ import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getAll, voteAnecdote } from './requests/anecdotes'
+import { useContext } from 'react'
+import { useMessageDisplay } from './NotificationContext'
 
 const App = () => {
   const queryClient = useQueryClient()
-
+  const messageDisplay = useMessageDisplay()
   const likeMutation = useMutation({
     mutationFn: voteAnecdote,
     onSuccess: (anecdote) => {
@@ -17,6 +19,7 @@ const App = () => {
 
   const handleVote = (anecdote) => {
     likeMutation.mutate(anecdote)
+    messageDisplay({ type: 'MESSAGE', message: `You liked: ${anecdote.content}`})
   }
 
   const result = useQuery({
@@ -27,7 +30,6 @@ const App = () => {
   })
 
   const anecdotes = result.data
-  console.log(JSON.parse(JSON.stringify(result)))
   if(result.isLoading){
     return(
       <div>loading anecdotes</div>
